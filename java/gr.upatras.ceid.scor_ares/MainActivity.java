@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switchToNewFragment(new Sport(getResources().getString(R.string.opt_tennis)));
                 break;
             case R.id.menu_favourites:
-                //TODO
+                switchToNewFragment(new Favourites());
                 break;
             case R.id.menu_nearby_events:
                 //TODO
@@ -129,5 +130,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          */
         switchToNewFragment(fragment, false);
     }
-
 }
