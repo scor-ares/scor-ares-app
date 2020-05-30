@@ -105,7 +105,7 @@
     </ScrollView>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/teamSpinner"
         android:layout_width="366dp"
         android:layout_height="34dp"
         android:layout_marginTop="5dp"
@@ -115,6 +115,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_text" />
 

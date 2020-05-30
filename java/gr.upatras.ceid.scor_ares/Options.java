@@ -23,9 +23,9 @@ public class Options extends Fragment {
         forum_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Forum forum = new Forum();
+                Options options = new Options();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, forum);
+                fragmentTransaction.replace(R.id.container_fragment, options);
                 fragmentTransaction.commit();
             }
         });
