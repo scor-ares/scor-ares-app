@@ -38,4 +38,5 @@
             android:visibility="visible"
             app:headerLayout="@layout/drawer_header"
             app:menu="@menu/menu_options" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -6,12 +6,34 @@
     <string name="label_menu_favourites">Αγαπημένα</string>
     <string name="label_menu_nearby_events">Αγώνες Τοποθεσίας</string>
     <string name="label_menu_settings">Ρυθμίσεις Χρήστη</string>
+    <string name="label_forum">FORUM PAGE</string>
 
     <!-- Labels των επιλογών της κατηγορίας μενού "επιλογή αθλήματος" -->
     <string name="opt_football">Ποδόσφαιρο</string>
     <string name="opt_basketball">Μπάσκετ</string>
     <string name="opt_volleyball">Βόλεϊ</string>
-    <string name="opt_tennis">Τένις</string>
+    <string name="opt_tennis">Τέννις</string>
+
+    <!-- Labels για την κατηγορία μενού "ρυθμίσεις χρήστη" -->
+    <string name="label_sport_choice">Επιλογή αθλήματος αρχικής οθόνης</string>
+    <string-array name="sport_choice">
+        <item>Ποδόσφαιρο</item>
+        <item>Μπάσκετ</item>
+        <item>Βόλεϊ</item>
+        <item>Τέννις</item>
+    </string-array>
+    <string name="label_notification_settings">Ρυθμίσεις Ειδοποίησεων</string>
+    <string-array name="notification_choice">
+        <item>Όλες οι ειδοποιήσεις</item>
+        <item>Μόνο τα αγαπημένα</item>
+        <item>Καμία</item>
+        <item>Προσαρμοσμένο</item>
+    </string-array>
+    <string name="label_sign_in_sign_up">Εγγραφή/Σύνδεση</string>
+    <string name="label_account_settings">Ρυθμίσεις Λογαριασμού</string>
+    <string name="label_log_out">Αποσύνδεση</string>
+    <string name="label_password_change">Αλλαγή κωδικού πρόσβασης</string>
+    <string name="label_email_change">Αλλαγή email</string>
 
     <!-- Throwaway dummy text -->
     <string name="dummy_text">Dummy Text</string>
@@ -19,4 +41,7 @@
     <!-- Action Bar Drawer Toggle accessibility values -->
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

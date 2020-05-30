@@ -14,6 +14,8 @@ import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
+
     @Override
     public void onBackPressed() {
         /* Υπερφόρτωση της μεθόδου onBackPressed() που κληρονομείται απο την κλάση
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switchToNewFragment(new Favourites());
                 break;
             case R.id.menu_nearby_events:
-                //TODO
+                switchToNewFragment(new Forum());
                 break;
             case R.id.menu_settings:
                 switchToNewFragment(new Options()); //TODO
