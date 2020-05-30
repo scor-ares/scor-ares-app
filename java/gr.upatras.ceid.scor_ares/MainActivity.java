@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_favourites:
                 switchToNewFragment(new Favourites());
                 break;
+            case R.id.menu_forum:
+                switchToNewFragment(new Forum());
+                break;
             case R.id.menu_nearby_events:
                 //TODO
                 break;

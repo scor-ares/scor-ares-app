@@ -6,6 +6,16 @@
     <string name="label_menu_favourites">Αγαπημένα</string>
     <string name="label_menu_nearby_events">Αγώνες Τοποθεσίας</string>
     <string name="label_menu_settings">Ρυθμίσεις Χρήστη</string>
+    <string name="label_forum">Είσοδος στο Forum</string>
+    
+    <!-- Ενδειγματικό string-array -->
+    <string-array name="dummy_choices">
+        <item>Choice #1</item>
+        <item>Choice #2</item>
+        <item>Choice #3</item>
+        <item>Choice #4</item>
+        <item>Choice #5</item>
+    </string-array>
 
     <!-- Labels των επιλογών της κατηγορίας μενού "επιλογή αθλήματος" -->
     <string name="opt_football">Ποδόσφαιρο</string>
