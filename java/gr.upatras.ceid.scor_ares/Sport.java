@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +36,34 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
         TextView text = (TextView) view.findViewById(R.id.header_text);
         text.setText(headerText);
 
+        //Αρχικοποίηση του spinner που περιέχει τις επιλογές ομάδας
         Spinner spinner = view.findViewById(R.id.teamSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.dummy_choices, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        //Αρχικοποίηση του πλαίσιου που δείχνει τους επερχόμενους αγώνες στον χρήστη
+        LinearLayout pastMatches = view.findViewById(R.id.pastMatches);
+
+        //TODO Η λίστα με τους αγώνες πρέπει να μεταβάλλεται δυναμικά ανάλογα με τα στοιχεία που υπάρχουν διαθέσιμα σε αντίστοιχο XML
+        for (int k = 0; k < 20; k++){
+            TextView teamName = new TextView(this.getActivity());
+            teamName.setId(k);
+
+            final String teamNameString = "Match #" + (k+1);
+            teamName.setText(teamNameString);
+            teamName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Team team = new Team(teamNameString);
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container_fragment, team);
+                    fragmentTransaction.commit();
+                }
+            });
+            pastMatches.addView(teamName);
+        }
 
         return view;
     }

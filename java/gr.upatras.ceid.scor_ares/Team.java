@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 
 public class Team extends Fragment{
+    //TODO κάθε αντικείμενο ομάδας λαμβάνει τα στοιχεία της και το ιστορικό της απο ξεχωριστή κλάση TeamData
     private String teamName; //Το όνομα της ομάδας, αλλάζει ανάλογα με το ποιό άθλημα επέλεξε ο χρήστης
     private LayoutInflater layoutInflater;
     private View view;

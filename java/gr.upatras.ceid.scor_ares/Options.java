@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-public class Options extends Fragment {
+
+public class Options extends Fragment
+{
     Button forum_button;
 
     @Nullable
@@ -23,12 +25,13 @@ public class Options extends Fragment {
         forum_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Options options = new Options();
+                Forum forum = new Forum();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, options);
+                fragmentTransaction.replace(R.id.container_fragment, forum);
                 fragmentTransaction.commit();
             }
         });
+
 
         return view;
     }
