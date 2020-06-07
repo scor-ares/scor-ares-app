@@ -15,6 +15,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Sport extends Fragment implements AdapterView.OnItemSelectedListener{
     /* Η παρούσα κλάση είναι αυτή που αναλαμβάνει να εμφανίζει την αρχική οθόνη του κάθε αθλήματος,
      * καθώς και να παρέχει λειτουργείες πλοήγησης του χρήστη σε επόμενες οθόνες
@@ -22,6 +34,7 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
     private String headerText; //Ο τίτλος της σελίδας, αλλάζει ανάλογα με το ποιό άθλημα επέλεξε ο χρήστης
     private LayoutInflater layoutInflater;
     private View view;
+    private ArrayList<String> team_choices;
 
     public Sport(String sportName){
         headerText = sportName;
@@ -38,7 +51,11 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
 
         //Αρχικοποίηση του spinner που περιέχει τις επιλογές ομάδας
         Spinner spinner = view.findViewById(R.id.teamSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.dummy_choices, android.R.layout.simple_spinner_item); //Οι επιλογές που θα εμφανίζονται στο drop down menu του spinner
+
+        ArrayList<Team> teams = getTeamChoices(headerText);
+        // Λειτουργική λύση για debugging ακριβώς απο κάτω
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.dummy_choices, android.R.layout.simple_spinner_item); //Οι επιλογές που θα εμφανίζονται στο drop down menu του spinner
+        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, teams);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -48,6 +65,7 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
 
         //TODO Η λίστα με τους αγώνες πρέπει να μεταβάλλεται δυναμικά ανάλογα με τα στοιχεία που υπάρχουν διαθέσιμα σε αντίστοιχο JSON
         //Παρακάτω δημιουργείται μια ενδειγματική λίστα απο String που πρόκεται να περιέχουν στοιχεία για επερχόμενους και περασμένους αγώνες.
+        //TODO Η λίστα πρέπει να αποτελείται απο αντικείμενα match και όχι Team!!
         for (int k = 0; k < 20; k++){
             TextView teamName = new TextView(this.getActivity());
             teamName.setId(k);
@@ -57,7 +75,7 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
             teamName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Team team = new Team(teamNameString);
+                    Team team = new Team();
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.container_fragment, team);
                     fragmentTransaction.commit();
@@ -76,9 +94,8 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
          * Εξαίρεση αποτελέι η πρώτη επιλογη που βρίσκεται στο position = 0, η οποία λειτουργεί ως ένας τύπος prompt για τον χρήστη να επιλέξει ομάδα.
          */
         if (position != 0) {
-            String text = parent.getItemAtPosition(position).toString(); //Ανάκτηση του κειμένου που βρίσκεται στην επιλογή που επιλέχθηκε
+            Team team = (Team) parent.getSelectedItem(); //Ανάκτηση του αντικειμένου Team που βρίσκεται στην θέση που επιλέχθηκε
 
-            Team team = new Team(text);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, team);
             fragmentTransaction.commit();
@@ -88,5 +105,46 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private ArrayList<Team> getTeamChoices(String sportName){
+        //TODO προσθήκη λογικής για την εμφάνιση των ομάδων που ανήκουν στο παρόν άθλημα μονο
+        ArrayList<Team> teamChoices = new ArrayList<>(
+                Collections.singletonList(new Team())
+        );
+        String json;
+        String name;
+        String id;
+
+        try{
+            //Άνοιγμα του αρχείου teams.json, μετατροπή του περιεχομένου του σε input stream
+            InputStream is = getActivity().getAssets().open("teams.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            //Μετατροπή του input stream σε String και έπειτα σε JSONArray
+            json = new String(buffer, "UTF-8");
+            JSONArray jsonArray = new JSONArray(json);
+
+            //Αναζήτηση κάθε JSONObject που βρίσκεται στο jsonArray
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+
+                if (obj.getString("sport").equals(sportName)) {
+                    name = obj.getString("name");
+                    id = obj.getString("id");
+                    teamChoices.add(new Team(id, name));
+                }
+            }
+
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return teamChoices;
     }
 }

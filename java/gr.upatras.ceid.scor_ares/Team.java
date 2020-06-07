@@ -1,14 +1,25 @@
 package gr.upatras.ceid.scor_ares;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 public class Team extends Fragment{
@@ -16,12 +27,16 @@ public class Team extends Fragment{
     private String teamName; //Το όνομα της ομάδας, αλλάζει ανάλογα με το ποιά ομάδα επέλεξε ο χρήστης
     private LayoutInflater layoutInflater;
     private View view; // Η view που επιστρέφει η μέθοδος onCreateView αρχικοποιείται εδώ.
+    private TeamData teamData;
 
-    public Team(String ID){
-        /*TODO το teamName καλύτερα να αντικατασταθεί απο το int teamID το οποίο θα λειτουργεί ως
-         * κλειδί για την εύρεση του JSONObject που περιέχει όλα τα στοιχεία ομάδας απο την κλάση TeamData
-         */
+    public Team(){
+        teamID = "0";
+        teamName = "Επιλογή Ομάδας";
+    }
+
+    public Team(String ID, String name){
         teamID = ID;
+        teamName = name;
     }
 
     @Nullable
@@ -31,14 +46,70 @@ public class Team extends Fragment{
         view = layoutInflater.inflate(R.layout.team_layout, container, false);
 
         TextView text = (TextView) view.findViewById(R.id.team_name); //Το παρόν TextView είναι ο τίτλος της ομάδας που προβάλλεται
+        ImageView logo = (ImageView) view.findViewById(R.id.teamLogo);
+        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.playerRosterTable);
+        JSONArray roster;
 
-        TeamData teamData = new TeamData(getActivity()); //Δημιουργία αντικειμένου της κλάσης TeamData με παράμετρο το context του παρόντος Fragment
+        teamData = new TeamData(getActivity());
 
-        teamID = "2"; //TODO διαγραφή αυτής της γραμμής
-        teamName = teamData.getTeamName(teamID);
+        if(!teamID.equals("0")) {
+            setName(teamData);//Δημιουργία αντικειμένου της κλάσης TeamData με παράμετρο το context του παρόντος Fragment
+            logo.setColorFilter(Color.parseColor(getColor(teamData)));
+
+            roster = teamData.getTeamRoster(teamID);
+
+            for(int i = 0; i < roster.length(); i++){
+                try {
+                    JSONObject player = roster.getJSONObject(i);
+                    TableRow tableRow = new TableRow(this.getActivity());
+                    TextView playerName = new TextView(this.getActivity());
+                    TextView playerPos = new TextView(this.getActivity());
+
+                    playerName.setText(player.getString("name"));
+                    playerPos.setText(player.getString("position"));
+
+                    playerName.setGravity(Gravity.CENTER);
+                    playerPos.setGravity(Gravity.CENTER);
+
+                    tableRow.addView(playerName);
+                    tableRow.addView(playerPos);
+                    tableLayout.addView(tableRow);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            /*TableRow tableRow = new TableRow(this.getActivity());
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+            TextView playerName = new TextView(this.getActivity());
+            TextView playerPos = new TextView(this.getActivity());
+
+            playerName.setText(R.string.dummy_text);
+            playerPos.setText("dokimi");
+
+            tableRow.addView(playerName);
+            tableRow.addView(playerPos);
+
+            tableLayout.addView(tableRow);*/
+        }
 
         text.setText(teamName);
         return view;
+    }
+
+    @Override
+    public String toString() {
+        //Η μέθοδος toString() υπερφορτώνεται διότι καλείται απο τον ArrayAdapter στην κλάση Sport για να ξέρει ποιό κείμενο να εμφανίσει.
+        //Εμείς θέλουμε να επιστρέφει το όνομα της κάθε ομάδας.
+        return teamName;
+    }
+
+    private void setName(TeamData teamData){
+        this.teamName = teamData.getTeamStringOfType(this.teamID, "name");
+    }
+
+    private String getColor(TeamData teamData){
+        return teamData.getTeamStringOfType(this.teamID, "color");
     }
 
 }
