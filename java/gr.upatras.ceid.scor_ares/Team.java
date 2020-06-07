@@ -12,15 +12,16 @@ import androidx.fragment.app.Fragment;
 
 
 public class Team extends Fragment{
-    private String teamName; //Το όνομα της ομάδας, αλλάζει ανάλογα με το ποιό άθλημα επέλεξε ο χρήστης
+    private String teamID;
+    private String teamName; //Το όνομα της ομάδας, αλλάζει ανάλογα με το ποιά ομάδα επέλεξε ο χρήστης
     private LayoutInflater layoutInflater;
     private View view; // Η view που επιστρέφει η μέθοδος onCreateView αρχικοποιείται εδώ.
 
-    public Team(String name){
+    public Team(String ID){
         /*TODO το teamName καλύτερα να αντικατασταθεί απο το int teamID το οποίο θα λειτουργεί ως
-         * δείχτης για την εύρεση του JSONObject που περιέχει όλα τα στοιχεία ομάδας απο την κλάση TeamData
+         * κλειδί για την εύρεση του JSONObject που περιέχει όλα τα στοιχεία ομάδας απο την κλάση TeamData
          */
-        teamName = name;
+        teamID = ID;
     }
 
     @Nullable
@@ -32,7 +33,9 @@ public class Team extends Fragment{
         TextView text = (TextView) view.findViewById(R.id.team_name); //Το παρόν TextView είναι ο τίτλος της ομάδας που προβάλλεται
 
         TeamData teamData = new TeamData(getActivity()); //Δημιουργία αντικειμένου της κλάσης TeamData με παράμετρο το context του παρόντος Fragment
-        teamName = teamData.getTeamName();
+
+        teamID = "2"; //TODO διαγραφή αυτής της γραμμής
+        teamName = teamData.getTeamName(teamID);
 
         text.setText(teamName);
         return view;
