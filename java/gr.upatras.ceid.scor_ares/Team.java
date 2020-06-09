@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 
 public class Team extends Fragment{
@@ -78,19 +76,6 @@ public class Team extends Fragment{
                     e.printStackTrace();
                 }
             }
-            /*TableRow tableRow = new TableRow(this.getActivity());
-            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-
-            TextView playerName = new TextView(this.getActivity());
-            TextView playerPos = new TextView(this.getActivity());
-
-            playerName.setText(R.string.dummy_text);
-            playerPos.setText("dokimi");
-
-            tableRow.addView(playerName);
-            tableRow.addView(playerPos);
-
-            tableLayout.addView(tableRow);*/
         }
 
         text.setText(teamName);

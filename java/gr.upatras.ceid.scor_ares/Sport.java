@@ -21,11 +21,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class Sport extends Fragment implements AdapterView.OnItemSelectedListener{
     /* Η παρούσα κλάση είναι αυτή που αναλαμβάνει να εμφανίζει την αρχική οθόνη του κάθε αθλήματος,
@@ -53,35 +50,54 @@ public class Sport extends Fragment implements AdapterView.OnItemSelectedListene
         Spinner spinner = view.findViewById(R.id.teamSpinner);
 
         ArrayList<Team> teams = getTeamChoices(headerText);
-        // Λειτουργική λύση για debugging ακριβώς απο κάτω
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.dummy_choices, android.R.layout.simple_spinner_item); //Οι επιλογές που θα εμφανίζονται στο drop down menu του spinner
-        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, teams);
+        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, teams);//Οι επιλογές που θα εμφανίζονται στο drop down menu του spinner
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
         //Αρχικοποίηση του πλαίσιου που δείχνει τους επερχόμενους αγώνες στον χρήστη
+        LinearLayout upcomingMatches = view.findViewById(R.id.upcomingMatches);
+        //Αρχικοποίηση του πλαίσιου που δείχνει τους περασμένους αγώνες στον χρήστη
         LinearLayout pastMatches = view.findViewById(R.id.pastMatches);
 
-        //TODO Η λίστα με τους αγώνες πρέπει να μεταβάλλεται δυναμικά ανάλογα με τα στοιχεία που υπάρχουν διαθέσιμα σε αντίστοιχο JSON
-        //Παρακάτω δημιουργείται μια ενδειγματική λίστα απο String που πρόκεται να περιέχουν στοιχεία για επερχόμενους και περασμένους αγώνες.
-        //TODO Η λίστα πρέπει να αποτελείται απο αντικείμενα match και όχι Team!!
+        //Παρακάτω δημιουργείται δυο ενδειγματική λίστα απο String που πρόκεται να περιέχουν στοιχεία για επερχόμενους και περασμένους αγώνες.
+        //TODO οι λίστες πρέπει να δημιουργούνται δυναμικά με την βοήθεια αρχείου json
+        //Επερχόμενοι Αγώνες
         for (int k = 0; k < 20; k++){
-            TextView teamName = new TextView(this.getActivity());
-            teamName.setId(k);
+            TextView matchTitle = new TextView(this.getActivity());
+            matchTitle.setId(k);
 
-            final String teamNameString = "Match #" + (k+1);
-            teamName.setText(teamNameString);
-            teamName.setOnClickListener(new View.OnClickListener() {
+            final String teamNameString = "Upcoming Match #" + (k+1);
+            matchTitle.setText(teamNameString);
+            matchTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Team team = new Team();
+                    Match match = new Match();
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container_fragment, team);
+                    fragmentTransaction.replace(R.id.container_fragment, match);
                     fragmentTransaction.commit();
                 }
             });
-            pastMatches.addView(teamName);
+            upcomingMatches.addView(matchTitle);
+        }
+
+        // Περασμένοι Αγώνες
+        for (int k = 0; k < 30; k++){
+            TextView matchTitle = new TextView(this.getActivity());
+            matchTitle.setId(k);
+
+            final String teamNameString = "Past Match #" + (k+1);
+            matchTitle.setText(teamNameString);
+            matchTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Match match = new Match();
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container_fragment, match);
+                    fragmentTransaction.commit();
+                }
+            });
+            pastMatches.addView(matchTitle);
         }
 
         return view;
