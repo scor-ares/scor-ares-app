@@ -4,15 +4,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-public class Options extends Fragment {
+
+public class Options extends Fragment
+{
+    Button forum_button;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.options_layout, container, false);
+        View view = inflater.inflate(R.layout.options_layout, container, false);
+
+        forum_button = view.findViewById(R.id.accountSettings);
+        forum_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountSettings accountSettings = new AccountSettings();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container_fragment, accountSettings);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        return view;
     }
 }

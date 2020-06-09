@@ -26,6 +26,10 @@
             android:icon="@drawable/ic_favourites"
             android:title="@string/label_menu_favourites" />
         <item
+            android:id="@+id/menu_forum"
+            android:icon="@drawable/ic_forum"
+            android:title="@string/label_forum" />
+        <item
             android:id="@+id/menu_nearby_events"
             android:icon="@drawable/ic_nearby_events"
             android:title="@string/label_menu_nearby_events" />

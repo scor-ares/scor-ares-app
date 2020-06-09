@@ -6,12 +6,46 @@
     <string name="label_menu_favourites">Αγαπημένα</string>
     <string name="label_menu_nearby_events">Αγώνες Τοποθεσίας</string>
     <string name="label_menu_settings">Ρυθμίσεις Χρήστη</string>
+    <string name="label_forum">Είσοδος στο Forum</string>
+    
+    <!-- Ενδειγματικό string-array -->
+    <string-array name="dummy_choices">
+        <item><font color="#808080"/><i>Επιλογή Ομάδας</i></item>
+        <item>Team #1</item>
+        <item>Team #2</item>
+        <item>Team #3</item>
+        <item>Team #4</item>
+        <item>Team #5</item>
+    </string-array>
 
     <!-- Labels των επιλογών της κατηγορίας μενού "επιλογή αθλήματος" -->
     <string name="opt_football">Ποδόσφαιρο</string>
     <string name="opt_basketball">Μπάσκετ</string>
     <string name="opt_volleyball">Βόλεϊ</string>
     <string name="opt_tennis">Τένις</string>
+
+    <!-- Labels για την κατηγορία μενού "ρυθμίσεις χρήστη" -->
+    <string name="label_sport_choice">Επιλογή αθλήματος αρχικής οθόνης</string>
+    <string-array name="sport_choice">
+        <item>Ποδόσφαιρο</item>
+        <item>Μπάσκετ</item>
+        <item>Βόλεϊ</item>
+        <item>Τέννις</item>
+    </string-array>
+    <string name="label_notification_settings">Ρυθμίσεις Ειδοποίησεων</string>
+    <string-array name="notification_choice">
+        <item>Όλες οι ειδοποιήσεις</item>
+        <item>Μόνο τα αγαπημένα</item>
+        <item>Καμία</item>
+        <item>Προσαρμοσμένο</item>
+    </string-array>
+
+    <!-- Labels των επιλογών στην οθόνη Ρυθμίσεις Χρήστη -->
+    <string name="label_sign_in_sign_up">Εγγραφή/Σύνδεση</string>
+    <string name="label_account_settings">Ρυθμίσεις Λογαριασμού</string>
+    <string name="label_log_out">Αποσύνδεση</string>
+    <string name="label_password_change">Αλλαγή κωδικού πρόσβασης</string>
+    <string name="label_email_change">Αλλαγή email</string>
 
     <!-- Throwaway dummy text -->
     <string name="dummy_text">Dummy Text</string>

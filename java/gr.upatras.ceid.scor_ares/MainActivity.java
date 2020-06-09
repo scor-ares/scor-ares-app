@@ -9,9 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.app.VoiceInteractor;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -66,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          */
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (fragmentManager.getBackStackEntryCount() > 0) {
+            //TODO
+            fragmentManager.popBackStackImmediate();
         } else {
             super.onBackPressed();
         }
@@ -93,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_favourites:
                 switchToNewFragment(new Favourites());
+                break;
+            case R.id.menu_forum:
+                switchToNewFragment(new Forum());
                 break;
             case R.id.menu_nearby_events:
                 //TODO
